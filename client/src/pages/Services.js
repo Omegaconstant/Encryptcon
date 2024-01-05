@@ -66,7 +66,7 @@ const Services = () => {
                     label,
                     value,
                 }))
-            ).filter(({ id }) => greenIndex[id] >= greenIndexValue);
+            )
         } catch (error) {
             console.error("Error Sending Data:", error);
         }
@@ -206,7 +206,7 @@ const Services = () => {
                                     <Typography variant="h5" gutterBottom>
                                         Investment Strategy
                                     </Typography>
-                                    <PieChartComponent data={responseData} />
+                                    <PieChartComponent data={responseData.filter((val,index) => greenIndex[index] >= greenIndexValue)} />
                                 </>
                             </Grid>
                             <Grid item xs={5} ml={7}>
