@@ -1,11 +1,11 @@
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import { Insights } from './pages/Insights';
-import { News } from './pages/News';
-import { Services } from './pages/Services';
-import { Navigation } from './components/Navigation';
-import Footer from './components/Footer';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import { Insights } from "./pages/Insights";
+import { News } from "./pages/News";
+import Services from "./pages/Services";
+import { Navigation } from "./components/Navigation";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/services" element={<Services />} />
       </Routes>
-      < Footer />
+      {/* <Footer /> */}
     </>
   );
 }
