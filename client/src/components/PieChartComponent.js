@@ -4,7 +4,6 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { Typography,Box } from '@mui/material';
 
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#00C49F', '#FFBB28'];
 
 const PieChartComponent = ({data}) => {
   return (

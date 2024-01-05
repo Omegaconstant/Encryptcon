@@ -1,8 +1,8 @@
 import React from "react";
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import { List, ListItem, Typography, Box } from "@mui/material";
 import { green, red } from "@mui/material/colors";
 
-const GreenIndexList = ({ companyNames, greenIndices }) => {
+const GreenIndexList = ({ companyNames, greenIndices, threshold }) => {
   // Combine company names and green indices into an array of objects
   const companies = companyNames.map((name, index) => ({
     name,
@@ -14,25 +14,39 @@ const GreenIndexList = ({ companyNames, greenIndices }) => {
     (a, b) => b.greenIndex - a.greenIndex
   );
 
-  const backgroundGradient = `linear-gradient(to bottom, ${green[700]}, ${red[300]})`;
+  const getColor = (percent) => {
+    return percent > threshold ? green[500] : red[500];
+  };
 
   return (
-    <List sx={{ background: backgroundGradient,padding:"0.8rem",marginTop:"3rem" }}>
-      {sortedCompanies.map((company, index) => (
-        <ListItem
-          key={index}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography variant="body1" style={{ flex: 1 }}>
-            {company.name}
-          </Typography>
-          <Typography variant="body1">{company.greenIndex}</Typography>
-        </ListItem>
-      ))}
-    </List>
+    <Box mt={6} p={2} bgcolor="background.paper" borderRadius={2} boxShadow={3}>
+      <Typography variant="h6" mb={3} color="primary">
+        Green Index Rankings
+      </Typography>
+      <List disablePadding>
+        {sortedCompanies.map((company, index) => (
+          <ListItem
+            key={index}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              backgroundColor: getColor(company.greenIndex, threshold),
+            }}
+          >
+            <Typography
+              variant="body1"
+              flex={1}
+              color="text.primary"
+            >
+              {company.name}
+            </Typography>
+            <Typography variant="body" color="text.primary">
+              {company.greenIndex}
+            </Typography>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 };
 
