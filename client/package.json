@@ -9,22 +9,32 @@
     "@mui/material": "^5.15.3",
     "@mui/styled-engine-sc": "^6.0.0-alpha.11",
     "@mui/styles": "^5.15.3",
+    "@mui/x-charts": "^6.18.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.4",
+<<<<<<< HEAD
     "chart.js": "^4.4.1",
     "express": "^4.18.2",
     "finnhub": "^1.2.18",
+=======
+    "lerp": "^1.0.3",
+>>>>>>> 7ed8659699e180bf24358811cfec8f5f903046f5
     "mui": "0.0.1",
     "plotly.js": "^2.27.1",
     "querystring": "^0.2.1",
     "react": "^18.2.0",
+<<<<<<< HEAD
     "react-chartjs-2": "^5.2.0",
+=======
+    "react-d3-speedometer": "^1.1.0",
+>>>>>>> 7ed8659699e180bf24358811cfec8f5f903046f5
     "react-dom": "^18.2.0",
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "recharts": "^2.10.3",
     "styled-components": "^6.1.6",
     "web-vitals": "^2.1.4",
     "yahoo-finance": "^0.3.8",
