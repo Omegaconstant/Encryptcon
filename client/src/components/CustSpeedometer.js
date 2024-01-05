@@ -9,7 +9,7 @@ const CustSpeedometer = ({ value }) => {
         Weighted Green Index Measure
       </Typography>
       <Speedometer
-        value={value}
+        value={parseFloat(value.toFixed(3))}
         minValue={0}
         maxValue={1}
         width={500}

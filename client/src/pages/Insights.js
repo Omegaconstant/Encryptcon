@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Stock from "../media/stock.png"; // Import your image file
+
 import Plot from "react-plotly.js";
-import axios from "axios";
-const Insight = () => {
+import {
+    TextField,
+    Button,
+    Grid,
+    Typography,
+    FormControl,
+} from "@mui/material";
+
+const Insights = () => {
     const [stockSymbol, setStockSymbol] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [stockData, setStockData] = useState([]);
     const [esgData, setEsgData] = useState([]);
+    const [loading, setIsLoading] = useState(false);
 
     const handleSymbolChange = (event) => {
         setStockSymbol(event.target.value.toUpperCase());
@@ -20,53 +30,45 @@ const Insight = () => {
         setEndDate(event.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
         fetchData();
     };
 
     const fetchData = async () => {
         try {
-            const accessKey = "370fe978d455d59ffd38a3a19ba5897e";
+            const accessKey = "DT3S3MdWgPuT0nyCvJWb4eyU6JEqX8Rz";
+            const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+            const period1 = Math.floor(new Date(startDate).getTime() / 1000); // Start date in Unix timestamp format
+            const period2 = Math.floor(new Date(endDate).getTime() / 1000); // End date in Unix timestamp format
 
-            const apiUrl = `https://cors-anywhere.herokuapp.com/http://api.marketstack.com/v1/eod?access_key=${accessKey}&symbols=${stockSymbol}&date_from=${startDate}&date_to=${endDate}`;
+            // const apiUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${stockSymbol}?period1=${period1}&period2=${period2}&interval=1d`;
 
-            const response = await axios(apiUrl, {
-                headers: {
-                    referrerPolicy: "unsafe-url",
-                },
-            });
-            const data = response.data;
-            console.log(data);
+            // const response = await fetch(proxyUrl + apiUrl);
+            // if (!response.ok) {
+            //     throw new Error(`HTTP error! Status: ${response.status}`);
+            // }
 
-            const stockValues = data.data.map((item) => ({
-                time: item.date,
-                price: item.close,
-                volume: item.volume,
-            }));
-            setStockData(stockValues);
+            // const data = await response.json();
+            // console.log(data.chart.result);
+            // // console.log(data.chart);
+
+            // const stockValues = data.chart.result[0].indicators.quote.map(
+            //     (item, index) => {
+            //         return {
+            //             time: new Date(
+            //                 data.chart.result[0].timestamp[index] * 1000
+            //             ).toISOString(), // Convert date to a string format (e.g., "2024-01-05T12:30:00.000Z")
+            //             price: item.close,
+            //             volume: item.volume,
+            //         };
+            //     }
+            // );
+            // setStockData(stockValues);
+            // console.log(stockData);
+            setIsLoading(true);
 
             // Fetch ESG data from Yahoo Finance
-
-            const response_esg = await axios.get(
-                `https://cors-anywhere.herokuapp.com/https://query2.finance.yahoo.com/v1/finance/esgChart?symbol=${stockSymbol}`,
-                { headers: { "Access-Control-Allow-Origin": "*" } }
-            );
-            const dataEsg = response_esg.data;
-            console.log(dataEsg);
-
-            const esgChartData =
-                dataEsg?.esgChart?.result[0]?.symbolSeries || [];
-
-            console.log("ESGCHARTDATA: ",esgChartData.keys(obj).map(key=>({...})));
-            const format_data = Object.keys(esgChartData).map(
-                (key) => esgChartData[data]
-            );
-            const formattedData = esgChartData.data.map((item) => ({
-                timestamp: new Date(item.timestamp * 1000).toISOString(),
-                esgScore: item.esgScore,
-            }));
-
-            setEsgData(formattedData);
+            // Code for fetching ESG data is commented out for now
         } catch (error) {
             console.error("Error fetching data:", error);
             setStockData([]);
@@ -96,50 +98,61 @@ const Insight = () => {
     ];
 
     return (
-        <div>
-            <h1>Stock Market Insights</h1>
-            <div>
-                <label>
-                    Stock Symbol:
-                    <input
-                        type="text"
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <Typography variant="h3" gutterBottom>
+                    Stock Market Insights
+                </Typography>
+                <FormControl>
+                    <TextField
+                        label="Stock Symbol"
                         value={stockSymbol}
                         onChange={handleSymbolChange}
                     />
-                </label>
-                <br />
-                <label>
-                    Start Date:
-                    <input
+                </FormControl>
+                <FormControl>
+                    <TextField
+                        label="Start Date"
                         type="date"
                         value={startDate}
                         onChange={handleStartDateChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
-                </label>
-                <label>
-                    End Date:
-                    <input
+                </FormControl>
+                <FormControl>
+                    <TextField
+                        label="End Date"
                         type="date"
                         value={endDate}
                         onChange={handleEndDateChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
-                </label>
-                <button onClick={handleSubmit}>Search</button>
-            </div>
-            <Plot
-                data={plotData}
-                layout={{
-                    width: 800,
-                    height: 500,
-                    title: "Time vs Stock Price",
-                }}
-            />
-            <Plot
-                data={plotESG}
-                layout={{ width: 400, height: 500, title: "ESG Score" }}
-            />
-        </div>
+                </FormControl>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        style={{ marginTop: "15px" }}
+                    >
+                        Search
+                    </Button>
+                </Grid>
+            </Grid>
+            {loading ? (
+                <>
+                    <Grid item xs={12} ml={2} sx={{ width: "50%" }}>
+                        <img src={Stock} alt="My Image" />
+                    </Grid>
+                </>
+            ) : (
+                <></>
+            )}
+        </Grid>
     );
 };
 
-export default Insight;
+export default Insights;

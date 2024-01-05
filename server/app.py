@@ -5,6 +5,7 @@ import json
 import os
 
 from portfolio import predict
+from green_index import green_g
 
 app = Flask(__name__)
 CORS(app)
@@ -25,6 +26,15 @@ def getPercents():
     print(predition)
     return jsonify({'prediction':predition})
 
+@app.route('/greenidx', methods=['POST'])
+@cross_origin()
+def getGreen():
+
+    data = json.loads(request.data)
+    print(data)
+    predition = green_g(data["assets"])
+    print(predition)
+    return jsonify({'prediction':predition})
 
 if __name__ == "__main__":
     app.run(debug=True)
