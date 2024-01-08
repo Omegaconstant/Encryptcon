@@ -5,7 +5,7 @@ Team: alpehNull
 <ol>
     <li> Link to <a href="https://drive.google.com/file/d/1XkGzK3GIWB2Y9kEQB5q6tQPML8yzajVo/view?usp=sharing">video submission</a> </li>
     <li> Link to <a href="https://drive.google.com/file/d/1jpVRj_xUCcvzAzsa78Wns1OrUJQL4yiF/view?usp=sharing">presentation</a></li>
-    <li> Link to <a href="https://github.com/Xerefic/ArcanaHackathon">repositiory</a> </li>
+    <li> Link to <a href="https://github.com/Omegaconstant/Encryptcon">repositiory</a> </li>
     <li> Link to <a href=""></a>website</li>
 </ol>
 <h3>File Structures</h3>
